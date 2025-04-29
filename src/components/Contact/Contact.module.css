@@ -1,0 +1,15 @@
+.main{
+  .main{
+    display: flex;
+    border: 3px solid black;
+    border-radius: 8px;
+    /* width: 800px; */
+    /* padding-top: 40px; */
+    margin: 0 auto;
+    background-color: aqua;
+    color: blue;
+  }
+}
+.my-icon{
+  size: 20px;
+}
