@@ -12,6 +12,7 @@ const SearchBox = () => {
       <input
         className={css.search}
         type="text"
+        placeholder="Enter search name"
         value={searchItem}
         onChange={(e) => dispatch(changeFilter(e.target.value))}
       />

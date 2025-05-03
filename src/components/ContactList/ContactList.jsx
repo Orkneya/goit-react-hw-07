@@ -2,12 +2,17 @@ import React from "react";
 import Contact from "../Contact/Contact";
 import css from "./ContactList.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteContact } from "../../redux/contactsSlice";
+import { deleteContact } from "../../redux/contactsOps";
+import { selectNameFilter } from "../../redux/filtersSlice";
+// import { selectFilteredContacts } from "../../redux/contactsSlice";
 
 const ContactList = () => {
+  const filter = useSelector(selectNameFilter);
   const contacts = useSelector((state) => state.contacts.items);
-  const filter = useSelector((state) => state.filters.name);
+  const error = useSelector((state) => state.contacts.error);
+  const loading = useSelector((state) => state.contacts.loading);
   const dispatch = useDispatch();
+  console.log(123, contacts);
 
   const delateTask = (taskId) => {
     dispatch(deleteContact(taskId));
@@ -33,6 +38,8 @@ const ContactList = () => {
           </li>
         ))}
       </ul>
+      {loading && <h2>loading...</h2>}
+      {error && <h2>Server is dead...</h2>}
     </div>
   );
 };
