@@ -1,14 +1,26 @@
-import { createSlice, isAnyOf } from "@reduxjs/toolkit";
+import { createSelector, createSlice, isAnyOf } from "@reduxjs/toolkit";
 import { fetchContacts, deleteContact, addContact } from "./contactsOps";
+import { selectNameFilter } from "./filtersSlice";
 
 const initialState = {
   items: [],
   loading: false,
   error: null,
 };
-// export const selectFilteredContacts = ({})  (state) => state.filters.name;
-// Селектор повинен залежати від поточних масиву контактів і значення фільтра, та повертати відфільтрований масив контактів.
-// Селектор selectFilteredContacts імпортується у компонент списка контактів ContactList.jsx та використовується у useSelector.
+export const selectContacts = (state) => state.contacts.items;
+export const selectLoading = (state) => state.contacts.loading;
+export const selectError = (state) => state.contacts.error;
+
+export const selectFilteredContacts = createSelector(
+  [selectContacts, selectNameFilter],
+  (contacts, filter) => {
+    return contacts
+      .filter((contact) => contact !== null)
+      .filter((contact) =>
+        contact.name.toLowerCase().includes(filter.toLowerCase())
+      );
+  }
+);
 
 const slice = createSlice({
   name: "contacts",
